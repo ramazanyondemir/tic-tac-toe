@@ -84,5 +84,6 @@ body {
     width: calc((100vw - 20px) / 3);
     height: calc((100vw - 20px) / 3);
     font-size: 2rem;
+    gap: 0px;
   }
 }
