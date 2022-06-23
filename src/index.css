@@ -73,17 +73,18 @@ body {
   box-shadow: rgba(233, 107, 107, 0.35) 0px 5px 15px;
 }
 
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 400px) {
   #root {
     padding: 0 10px;
   }
   .board {
     width: 100vw;
+    gap: 0px;
+    border: none;
   }
   .box {
     width: calc((100vw - 20px) / 3);
     height: calc((100vw - 20px) / 3);
     font-size: 2rem;
-    gap: 0px;
   }
 }
