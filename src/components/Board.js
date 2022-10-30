@@ -1,3 +1,4 @@
+import { toBePartiallyChecked } from "@testing-library/jest-dom/dist/matchers";
 import React, { useState } from "react";
 import { Box } from "./Box";
 
@@ -17,6 +18,7 @@ export const Board = () => {
   ];
 
   const checkWin = () => {
+    isEnd();
     for (let i = 0; i < WINNING_COMBINATIONS.length; i++) {
       const [x, y, z] = WINNING_COMBINATIONS[i];
       if (board[x] && board[x] === board[y] && board[y] === board[z]) {
@@ -24,6 +26,13 @@ export const Board = () => {
       }
     }
     return null;
+  };
+
+  const isEnd = () => {
+    const end = board.every((el) => el !== null);
+    if (end) {
+      resetGame();
+    }
   };
 
   const resetGame = () => {
@@ -56,23 +65,35 @@ export const Board = () => {
   };
 
   return (
-    <div className="board">
-      <div className="info">
-        <h2>{status ? status : desk}</h2>
-        <button onClick={resetGame} className="reset-btn">
-          RESET
-        </button>
+    <>
+      {status && (
+        <div className="transbg center">
+          <div className="gameover center">
+            <h2>{`WINNER ${winner}`}</h2>
+            <button onClick={resetGame} className="reset-btn">
+              Reset Game
+            </button>
+          </div>
+        </div>
+      )}
+      <div className="board">
+        <div className="info">
+          <h2>{desk}</h2>
+          <button onClick={resetGame} className="reset-btn">
+            Reset Game
+          </button>
+        </div>
+        {board.map((value, index) => {
+          return (
+            <Box
+              key={index}
+              value={value}
+              index={index}
+              handleBoxClick={handleBoxClick}
+            />
+          );
+        })}
       </div>
-      {board.map((value, index) => {
-        return (
-          <Box
-            key={index}
-            value={value}
-            index={index}
-            handleBoxClick={handleBoxClick}
-          />
-        );
-      })}
-    </div>
+    </>
   );
 };
