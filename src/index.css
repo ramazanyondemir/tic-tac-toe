@@ -22,6 +22,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .board {
   display: flex;
   flex-wrap: wrap;
@@ -62,21 +68,40 @@ body {
 .reset-btn {
   background-color: #fff;
   color: red;
-  border: 2px solid red;
+  border: 1px solid red;
   border-radius: 3px;
   padding: 10px;
   margin-top: 5px;
   font-size: 1.2rem;
   cursor: pointer;
 }
-.reset-btn:hover {
-  font-weight: bold;
-  box-shadow: rgba(233, 107, 107, 0.35) 0px 4px 10px;
+
+.transbg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 100vh;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.325);
+}
+.gameover {
+  width: 300px;
+  height: 200px;
+  flex-direction: column;
+  background-color: rgba(68, 68, 68, 0.9);
+  border-radius: 5px;
+  z-index: 999;
+}
+.gameover h2 {
+  color: limegreen;
+  margin-bottom: 10px;
 }
 
 @media screen and (max-width: 768px) {
   #root {
-    padding: 0 10px;
+    padding: 0 5px;
   }
   .board {
     width: 100vw;
