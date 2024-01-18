@@ -1,10 +1,12 @@
 import { toBePartiallyChecked } from "@testing-library/jest-dom/dist/matchers";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box } from "./Box";
 
 export const Board = () => {
   const [board, setBoard] = useState(Array(9).fill(null));
   const [isX, setIsX] = useState(true);
+  const [winner, setWinner] = useState(null);
+  const [winnerLine, setWinnerLine] = useState(null);
 
   const WINNING_COMBINATIONS = [
     [0, 1, 2],
@@ -17,11 +19,16 @@ export const Board = () => {
     [2, 4, 6],
   ];
 
+  useEffect(() => {
+    setWinner(checkWin())
+  }, [isX])
+
   const checkWin = () => {
     isEnd();
     for (let i = 0; i < WINNING_COMBINATIONS.length; i++) {
       const [x, y, z] = WINNING_COMBINATIONS[i];
       if (board[x] && board[x] === board[y] && board[y] === board[z]) {
+        setWinnerLine(i)
         return board[x];
       }
     }
@@ -38,9 +45,9 @@ export const Board = () => {
   const resetGame = () => {
     setBoard(Array(9).fill(null));
     setIsX(true);
+    setWinnerLine(null);
   };
 
-  const winner = checkWin();
   let status = null,
     desk = null;
 
@@ -84,12 +91,14 @@ export const Board = () => {
           </button>
         </div>
         {board.map((value, index) => {
+          const lineIsWinner = winnerLine && WINNING_COMBINATIONS[winnerLine].includes((index))
           return (
             <Box
               key={index}
               value={value}
               index={index}
               handleBoxClick={handleBoxClick}
+              isWinner={lineIsWinner}
             />
           );
         })}
