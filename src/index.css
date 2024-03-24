@@ -57,6 +57,10 @@ body {
   color: #000;
 }
 
+.winner-color {
+  background-color: antiquewhite;
+}
+
 .info {
   display: flex;
   width: 100%;
